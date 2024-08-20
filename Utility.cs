@@ -38,6 +38,23 @@ namespace MovieDB;
 		}
 	}
 
+	/// <summary>Finds the index of the item in the sequence</summary>
+	/// <returns>returns the index of the given item, or -1 if not found.</returns>
+	public static int IndexOf<T>(this IEnumerable<T> list, T? item) where T : class
+	{
+		if (item is null)
+			return -1;
+
+		int i = 0;
+		foreach (var n in list)
+		{
+			if (n.Equals(item))
+				return i;
+			i++;
+		}
+		return -1;
+	}
+
 	/// <summary>Gets an int from console input</summary>
 	/// <param name="prompt">The prompt to display when an invalid value is entered</param>
 	public static int GetInt(string prompt = "Please enter a valid number", int min = int.MinValue, int max = int.MaxValue)
