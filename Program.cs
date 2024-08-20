@@ -4,10 +4,11 @@ class Program
 {
 	static readonly List<Movie> movies = 
 	[
-		new("Wolfwalkers", "Adventure"), new("Secret of Kells", "Adventure"), new("Everything Everywhere All at Once", "Action"),
-		new("Sahara", "Action"), new("National Treasure", "Action"), new("Planet Earth", "Documentary"),
-		new("Crouching Tiger, Hidden Dragon", "Kung-Fu"), new("Dead Again", "Thriller"), new("The Prestige", "Thriller"),
-		new("Citizen Kane", "Classic")
+		new("Wolfwalkers", "Adventure", 2020, 103), new("Secret of Kells", "Adventure", 2009, 75), 
+		new("Everything Everywhere All at Once", "Action", 2022, 139), new("Sahara", "Action", 2005, 124), 
+		new("National Treasure", "Action", 2004, 131), new("Planet Earth", "Documentary", 2006, 300),
+		new("Crouching Tiger, Hidden Dragon", "Kung-Fu", 2000, 120), new("Dead Again", "Thriller", 1991, 167), 
+		new("The Prestige", "Thriller", 2006, 130), new("Citizen Kane", "Classic", 1941, 119)
 	];
 
 	static void Main(string[] args)
@@ -40,6 +41,9 @@ class Program
 
 	static void PrintMenu(IEnumerable<string> genres, int count)
 	{
+		Console.WriteLine("Available Genres:");
+		Console.WriteLine();
+
 		if (count <= 10)
 		{
 			int i = 1;
@@ -60,12 +64,14 @@ class Program
 
 	static void PrintMovies(IEnumerable<Movie> selection)
 	{
-		string[] headers = ["Title", "Genre"];
+		string[] headers = ["Title", "Genre", "Year", "Minutes"];
 
 		string format = Utility.CreateColumnsFor(
 			true, headers,
 			selection.Select(m => m.Name),
-			selection.Select(m => m.Category)
+			selection.Select(m => m.Category),
+			selection.Select(m => m.Year.ToString()),
+			selection.Select(m => m.Duration.ToString())
 		);
 
 		string header = string.Format(format, headers);
@@ -75,7 +81,7 @@ class Program
 
 		foreach (Movie movie in selection)
 			Console.WriteLine(string.Format(format, 
-				movie.Name, movie.Category
+				movie.Name, movie.Category, movie.Year, movie.Duration
 			));
 
 		Console.WriteLine();
