@@ -22,7 +22,7 @@ class Program
 
 		for (bool flag = true; flag; flag = Utility.PromptYesNo(true, "Would you like to do another search?"))
 		{
-			PrintMenu(genres);
+			PrintMenu(genres, genres.Count);
 			if (GetGenreSelection(genres) is not string Genre)
 				break;
 
@@ -38,14 +38,23 @@ class Program
 		Utility.PromptExit("Thanks for joining us!");
 	}
 
-	static void PrintMenu(IEnumerable<string> genres)
+	static void PrintMenu(IEnumerable<string> genres, int count)
 	{
-		int i = 1;
-		foreach (string genre in genres)
+		if (count <= 10)
 		{
-			Console.WriteLine($"{i}. {genre}");
-			i++;
+			int i = 1;
+			foreach (string genre in genres)
+			{
+				Console.WriteLine($"{i}. {genre}");
+				i = (i + 1) % 10;
+			}
 		}
+		else
+		{
+			foreach (string genre in genres)
+				Console.WriteLine(genre);
+		}
+
 		Console.WriteLine();
 	}
 
