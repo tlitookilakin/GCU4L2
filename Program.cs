@@ -29,9 +29,9 @@ class Program
 
 			Console.WriteLine(" ");
 
-			var compare = StringComparer.CurrentCulture;
-			List<Movie> selection = movies.Where(m => m.Category.Equals(Genre, StringComparison.OrdinalIgnoreCase)).ToList();
-			selection.Sort((a, b) => compare.Compare(a.Name, b.Name));
+			var selection = movies
+				.Where(m => m.Category.Equals(Genre, StringComparison.OrdinalIgnoreCase))
+				.OrderBy(m => m.Name);
 
 			PrintMovies(selection);
 		}
